@@ -1,0 +1,1 @@
+add_library(as1 as1.cc)
