@@ -25,3 +25,21 @@ template <class T> void solve(Node<T> *head) {
         cursor = prev->next;
     }
 }
+
+template <class T> void solve1(Node<T> *head) {
+    Node<T> *cursor = head;
+    while(cursor != nullptr) {
+        Node<T> *peek = cursor->next, *prev = cursor;
+        while(peek != nullptr) {
+            if(peek->val == cursor->val) {
+                prev->next = peek->next;
+                delete peek;
+                peek = prev->next;
+            } else {
+                prev = peek;
+                peek = peek->next;
+            }
+        }
+        cursor = cursor->next;
+    }
+}
