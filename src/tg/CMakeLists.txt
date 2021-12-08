@@ -1,0 +1,1 @@
+add_library(tg1 tg1.cc)
