@@ -1,0 +1,1 @@
+add_library(bit1 bit1.cc)
