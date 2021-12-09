@@ -1,0 +1,1 @@
+add_library(oop1 oop1.cc)
