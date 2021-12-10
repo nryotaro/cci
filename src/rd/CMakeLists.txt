@@ -1,0 +1,1 @@
+add_library(rd1 rd1.cc)
