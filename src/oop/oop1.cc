@@ -112,6 +112,7 @@ class Player final {
         int sum = cards.clac_numeric_card_sum();
         return sum;
     }
+    bool is_lose() { return check_status() > 21; }
 
   private:
     Cards cards;
@@ -123,13 +124,31 @@ class BlackJackCards final : public Cards {
                    vector<NumberCard> numberCards, vector<CardType> cardTypes)
         : Cards(jokers, numberCards, cardTypes), players(players), turn(0) {}
 
-    void skip() { turn = (turn + 1) % (int)players.size(); }
+    void skip() {
+        if(game_over())
+            return;
+        turn = next();
+        while(players[turn].is_lose()) {
+            next();
+        }
+    }
+
+    bool game_over() {
+        for(auto player : players) {
+            if(!player.is_lose())
+                return false;
+        }
+        return true;
+    }
 
     void draw() {
+        if(game_over())
+            return;
         NumberCard numberCard = draw_number_card();
         players[turn].add_card(numberCard);
         skip();
     }
+    int next() { return (turn + 1) % (int)players.size(); }
 
     vector<Player> status() {
         vector<Player> vectorWinnerPlayers(players.begin(), players.end());
