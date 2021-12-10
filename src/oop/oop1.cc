@@ -1,27 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Suit {};
-class Spade final : public Suit {};
-class Heart final : public Suit {};
-class Diamond final : public Suit {};
-class Club final : public Suit {};
+enum class Suit { Spade, Heart, Diamond, Club };
 
 class Suits {
   public:
     vector<Suit> enumerate_suits() {
-        return {Spade(), Heart(), Diamond(), Club()};
+        return {Suit::Spade, Suit::Heart, Suit::Diamond, Suit::Club};
     }
 };
 
+enum class CardType { Joker, Number };
+
 class Card {
   public:
-    virtual ~Card() {}
+    virtual CardType get_card_type();
 };
-class Joker : public Card {};
+
+class Joker : public Card {
+    CardType get_card_type() { return CardType::Joker; }
+};
+
 class NumberCard : public Card {
   public:
     NumberCard(Suit suit, int number) : suit(suit), number(number) {}
+
+    virtual CardType get_card_type() { CardType::Number; }
+
+    int get_number() { return number; }
 
   private:
     Suit suit;
@@ -30,62 +36,134 @@ class NumberCard : public Card {
 
 class Cards {
   public:
-    Cards(vector<Card> cards) : cards(cards) {}
+    Cards(vector<Joker> jokers, vector<NumberCard> numberCards,
+          vector<CardType> cardTypes)
+        : cardTypes(cardTypes), jokers(jokers), numberCards(numberCards) {}
 
     Card draw_card() {
-        Card card = cards.back();
-        cards.pop_back();
-        return card;
+        CardType cardType = cardTypes.back();
+        cardTypes.pop_back();
+        if(cardType == CardType::Joker) {
+            Card card = jokers.back();
+            jokers.pop_back();
+            return card;
+        } else {
+            Card card = numberCards.back();
+            numberCards.pop_back();
+            return card;
+        }
     }
-    void back_card(Card card) { cards.push_back(card); }
+
+    NumberCard draw_number_card() {
+        if(numberCards.size() > 0) {
+            NumberCard card = numberCards.back();
+            stack<CardType> stk;
+            while(cardTypes.back() == CardType::Joker) {
+                stk.push(cardTypes.back());
+                cardTypes.pop_back();
+            }
+            cardTypes.pop_back();
+            while(!stk.empty()) {
+                cardTypes.push_back(stk.top());
+                stk.pop();
+            }
+            return card;
+        } else {
+            throw runtime_error("error");
+        }
+    }
+    void back_card(NumberCard card) {
+        cardTypes.push_back(CardType::Number);
+        numberCards.push_back(card);
+    }
+    void back_card(Joker card) {
+        cardTypes.push_back(CardType::Joker);
+        jokers.push_back(card);
+    }
+
     void shuffle() {
         std::random_device rd;
         std::mt19937 g(rd());
-        std::shuffle(cards.begin(), cards.end(), g);
+        std::shuffle(numberCards.begin(), numberCards.end(), g);
+        std::shuffle(cardTypes.begin(), cardTypes.end(), g);
+    }
+
+    int clac_numeric_card_sum() {
+        int sum = 0;
+        for(auto card : numberCards) {
+            sum += card.get_number();
+        }
+        return sum;
     }
 
   private:
-    vector<Card> cards;
+    vector<CardType> cardTypes;
+    vector<Joker> jokers;
+    vector<NumberCard> numberCards;
+};
+
+class Player final {
+  public:
+    Player(Cards cards) : cards(cards) {}
+
+    int add_card(NumberCard card) { cards.back_card(card); }
+
+    int check_status() {
+        int sum = cards.clac_numeric_card_sum();
+        return sum;
+    }
+
+  private:
+    Cards cards;
 };
 
 class BlackJackCards final : public Cards {
   public:
-    BlackJackCards(int number_of_players, Cards cards)
-        : number_of_players(number_of_players), Cards(cards) {}
+    BlackJackCards(vector<Player> players, vector<Joker> jokers,
+                   vector<NumberCard> numberCards, vector<CardType> cardTypes)
+        : Cards(jokers, numberCards, cardTypes), players(players), turn(0) {}
 
-    NumberCard draw(int player_id) {
-        Card card = draw_card();
-        Card &a = card;
-        return dynamic_cast<NumberCard &>(a);
+    void skip() { turn = (turn + 1) % (int)players.size(); }
+
+    void draw() {
+        NumberCard numberCard = draw_number_card();
+        players[turn].add_card(numberCard);
+        skip();
+    }
+
+    vector<Player> status() {
+        vector<Player> vectorWinnerPlayers(players.begin(), players.end());
     }
 
   private:
-    int number_of_players;
+    int turn;
+    vector<Player> players;
 };
 
 class CardsFactory final {
   public:
-    Cards create_cards() {
-        Cards cards = create_number_cards();
-        cards.back_card(Joker());
-        cards.back_card(Joker());
-        return Cards(cards);
-    }
-    Cards create_number_cards() {
-        vector<Card> cards;
+    Cards empty() { return Cards({}, {}, {}); }
+};
+
+class BlackJackCardsFactory final {
+
+  public:
+    BlackJackCards create(int num_of_players) {
+        CardsFactory factory = CardsFactory();
+        vector<Player> players;
+        for(int i = 0; i < num_of_players; i++) {
+            players.push_back(Player(factory.empty()));
+        }
+        vector<NumberCard> cards;
+        vector<CardType> cardTypes;
         for(auto suit : Suits().enumerate_suits()) {
             for(int i = 1; i <= 13; i++) {
                 cards.push_back(NumberCard(suit, i));
+                cardTypes.push_back(CardType::Number);
             }
         }
-        return Cards(cards);
-    }
-};
-
-class BalckJackCardsFactory {
-
-    BlackJackCards create(int number_of_players) {
-        Cards cards = CardsFactory().create_number_cards();
-        return BlackJackCards(number_of_players, cards);
+        BlackJackCards res = BlackJackCards(players, {}, cards, cardTypes);
+        res.shuffle();
+        return res;
     }
 };
