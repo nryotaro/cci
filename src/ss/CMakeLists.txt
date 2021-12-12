@@ -1,0 +1,1 @@
+add_library(ss1 ss1.cc)
