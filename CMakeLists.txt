@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16.3)
 project(lc)
-set(CMAKE_CXX_FLAGS "-D=_debug -std=c++14 -Wall -ftrapv")
+set(CMAKE_CXX_FLAGS "-D=_debug -std=c++17 -Wall -ftrapv")
 
 include(FetchContent)
 FetchContent_Declare(
