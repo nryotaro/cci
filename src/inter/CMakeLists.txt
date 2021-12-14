@@ -1,0 +1,1 @@
+add_library(inter1 inter1.cc)
