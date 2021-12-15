@@ -1,0 +1,1 @@
+add_library(adv1 adv1.cc)
