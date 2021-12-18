@@ -8,27 +8,36 @@ void Manager::respond() {}
 
 void Director::respond() {}
 
-WorkerQueue::WorkerQueue(queue<Worker> workers) : workers(workers){};
+CallCenter::CallCenter(vector<Responder> res, vector<Manager> man,
+                       vector<Director> dir) {
 
-bool WorkerQueue::empty() { return workers.empty(); }
-
-Worker WorkerQueue::pop() {
-    Worker worker = workers.front();
-    workers.pop();
-    return worker;
+    for(auto &e : res) {
+        responders.push(move(e));
+    }
+    for(auto &e : man) {
+        managers.push(move(e));
+    }
+    for(auto &e : dir) {
+        directors.push(move(e));
+    }
 }
-void WorkerQueue::pushBack(Worker worker) { workers.push(worker); }
-
-CallCenter::CallCenter(WorkerQueue responders, WorkerQueue managers,
-                       WorkerQueue directors)
-    : responders(responders), managers(managers), directors(directors) {}
 
 Worker CallCenter::dispatchCall() {
-
-    vector<WorkerQueue> queues = {responders, managers, directors};
-    for(auto queue : queues) {
-        if(queue.empty())
-            return queue.pop();
+    if(!responders.empty()) {
+        Worker worker = responders.front();
+        responders.pop();
+        return worker;
     }
+    if(!managers.empty()) {
+        Worker worker = managers.front();
+        managers.pop();
+        return worker;
+    }
+    if(!directors.empty()) {
+        Worker worker = directors.front();
+        directors.pop();
+        return worker;
+    }
+
     throw runtime_error("no worker exists.");
 }

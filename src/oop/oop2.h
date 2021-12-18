@@ -1,3 +1,4 @@
+#include <memory>
 #include <queue>
 class Worker {
   public:
@@ -18,26 +19,15 @@ class Director final : public Worker {
     void respond();
 };
 
-class WorkerQueue final {
-  public:
-    WorkerQueue(std::queue<Worker> workers);
-    bool empty();
-    Worker pop();
-    void pushBack(Worker worker);
-
-  private:
-    std::queue<Worker> workers;
-};
-
-
 class CallCenter final {
   public:
-    CallCenter(WorkerQueue responders, WorkerQueue managers,
-               WorkerQueue directors);
+    CallCenter(std::vector<Responder> responders, std::vector<Manager> managers,
+               std::vector<Director> directors);
     Worker dispatchCall();
 
   private:
-    WorkerQueue responders;
-    WorkerQueue managers;
-    WorkerQueue directors;
+    std::queue<Responder> responders;
+    std::queue<Manager> managers;
+    std::queue<Director> directors;
+
 };
