@@ -1,0 +1,1 @@
+add_library(design2 design2.cc)

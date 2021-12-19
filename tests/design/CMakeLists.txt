@@ -1,0 +1,3 @@
+add_executable(testdesign2 design2.cc)
+target_link_libraries(testdesign2 design2 gtest_main)
+gtest_discover_tests(testdesign2)
