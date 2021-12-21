@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.16.3)
 project(lc)
 set(CMAKE_CXX_FLAGS "-D=_debug -std=c++17 -Wextra -O2 -Wall -ftrapv")
 
+option(CMAKE_EXPORT_COMPILE_COMMANDS 1)
+
 include(FetchContent)
 FetchContent_Declare(
   googletest
