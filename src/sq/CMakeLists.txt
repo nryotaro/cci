@@ -1,2 +1,3 @@
 add_library(sq1 sq1.cc)
 add_library(sq2 sq2.cc)
+add_library(sq3 sq3.cc)
