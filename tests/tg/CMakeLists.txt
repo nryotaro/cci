@@ -9,3 +9,7 @@ gtest_discover_tests(testtg2)
 add_executable(testtg3 tg3.cc)
 target_link_libraries(testtg3 tg3 gtest_main)
 gtest_discover_tests(testtg3)
+
+add_executable(testtg4 tg4.cc)
+target_link_libraries(testtg4 tg4 gtest_main)
+gtest_discover_tests(testtg4)
