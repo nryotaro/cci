@@ -1,3 +1,4 @@
 add_library(bit1 bit1.cc)
 add_library(bit2 bit2.cc)
 add_library(bit3 bit3.cc)
+add_library(bit4 bit4.cc)
