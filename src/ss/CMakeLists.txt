@@ -1,2 +1,4 @@
 add_library(ss1 ss1.cc)
 add_library(ss2 ss2.cc)
+add_library(ss3 ss3.cc)
+add_library(ss4 ss4.cc)
