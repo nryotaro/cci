@@ -56,3 +56,54 @@ Winner solve(vector<vector<int>> grid) {
     return Winner::X;
   return Winner::None;
 }
+
+class Checker final {
+public:
+  Checker(int row, int column, int delta_row, int delta_column)
+      : row(row), column(column), delta_row(delta_row),
+        delta_column(delta_column){
+
+        };
+
+  Winner solve(vector<vector<int>> &grid) {
+    int row_i = row, col_i = column, n = grid.size();
+    char c = grid[row_i][col_i];
+    for (int i = 1; i < n; i++) {
+      row_i += delta_row;
+      col_i += delta_column;
+      if (c != grid[row_i][col_i])
+        return Winner::None;
+    }
+    if (c == 'o')
+      return Winner::O;
+    else if (c == 'x')
+      return Winner::X;
+    return Winner::None;
+  }
+
+private:
+  int row, column, delta_row, delta_column;
+};
+
+Winner solve2(std::vector<std::vector<int>> grid) {
+  int n = grid.size();
+  for (int i = 0; i < n; i++) {
+    Checker checker(i, 0, 0, 1);
+    Winner winner = checker.solve(grid);
+    if (winner != Winner::None)
+      return winner;
+  }
+  for (int i = 0; i < n; i++) {
+    Checker checker(0, i, 1, 0);
+    Winner winner = checker.solve(grid);
+    if (winner != Winner::None)
+      return winner;
+  }
+  Checker checker(0, 0, 1, 1);
+  Winner winner = checker.solve(grid);
+  if (winner != Winner::None)
+    return winner;
+  checker = Checker(0, n - 1, 1, -1);
+  winner = checker.solve(grid);
+  return winner;
+}
