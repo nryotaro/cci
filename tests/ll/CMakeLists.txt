@@ -13,3 +13,7 @@ gtest_discover_tests(testll3)
 add_executable(testll4 ll4.cc)
 target_link_libraries(testll4 ll4 gtest_main)
 gtest_discover_tests(testll4)
+
+add_executable(testll5 ll5.cc)
+target_link_libraries(testll5 ll5 gtest_main)
+gtest_discover_tests(testll5)
