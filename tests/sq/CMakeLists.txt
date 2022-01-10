@@ -17,3 +17,7 @@ gtest_discover_tests(testsq4)
 add_executable(testsq5 sq5.cc)
 target_link_libraries(testsq5 sq5 gtest_main)
 gtest_discover_tests(testsq5)
+
+add_executable(testsq6 sq6.cc)
+target_link_libraries(testsq6 sq5 gtest_main)
+gtest_discover_tests(testsq6)
