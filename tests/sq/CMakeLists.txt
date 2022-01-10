@@ -13,3 +13,7 @@ gtest_discover_tests(testsq3)
 add_executable(testsq4 sq4.cc)
 target_link_libraries(testsq4 sq4 gtest_main)
 gtest_discover_tests(testsq4)
+
+add_executable(testsq5 sq5.cc)
+target_link_libraries(testsq5 sq5 gtest_main)
+gtest_discover_tests(testsq5)
