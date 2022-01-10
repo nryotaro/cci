@@ -24,3 +24,26 @@ TEST(sq5, 1) {
   stk.pop();
   EXPECT_EQ(true, stk.empty());
 }
+
+TEST(sq5, 2) {
+  stack<int> stk;
+  stk.push(2);
+  stk.push(4);
+  stk.push(5);
+  stk.push(2);
+  stk.push(3);
+  
+  solve2(stk);
+
+  EXPECT_EQ(2, stk.top());
+  stk.pop();
+  EXPECT_EQ(2, stk.top());
+  stk.pop();
+  EXPECT_EQ(3, stk.top());
+  stk.pop();
+  EXPECT_EQ(4, stk.top());
+  stk.pop();
+  EXPECT_EQ(5, stk.top());
+  stk.pop();
+  EXPECT_EQ(true, stk.empty());
+}
