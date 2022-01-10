@@ -17,3 +17,7 @@ gtest_discover_tests(testas4)
 add_executable(testas5 as5.cc)
 target_link_libraries(testas5 as5 gtest_main)
 gtest_discover_tests(testas5)
+
+add_executable(testas6 as6.cc)
+target_link_libraries(testas6 as6 gtest_main)
+gtest_discover_tests(testas6)
