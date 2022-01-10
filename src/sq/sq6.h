@@ -1,33 +1,31 @@
 #include <string>
 #include <list>
+#include <iostream>
 #include <utility>
-enum class AnimalType { Dog, Cat };
 
 class Animal {
 public:
   std::string name;
   Animal(std::string name);
 
-  virtual AnimalType getType() const = 0;
-
-  bool operator==(const Animal &other) const;
-
+  virtual void doge() const{
+    std::cout << "dogeee" << std::endl;
+  };
   ~Animal() {}
 };
-
 
 class Dog final: public Animal {
 public:
   Dog(std::string name);
-  AnimalType getType() const override;
   bool operator==(const Dog &other) const;
+  void doge() const override;
 };
 
 class Cat final : public Animal {
 public:
   Cat(std::string name);
-  AnimalType getType() const override;
   bool operator==(const Cat &other) const;
+  void doge() const override;  
 };
 
 class AnimalQueue final {
@@ -38,7 +36,7 @@ private:
 public:
   void enqueue(Dog dog);
   void enqueue(Cat cat);
-  Animal* dequeueAny();
+  Animal dequeueAny();
   Dog dequeueDog();
   Cat dequeueCat();
 };

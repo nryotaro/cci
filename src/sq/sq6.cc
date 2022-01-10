@@ -5,22 +5,22 @@ using namespace std;
 Animal::Animal(string name) : name(name) {}
 
 
-bool Animal::operator==(const Animal &other) const {
-  return name == other.name && getType() == other.getType();
-}
-
 Dog::Dog(string name) : Animal(name) {}
 
-AnimalType Dog::getType() const { return AnimalType::Dog; }
+void Dog::doge() const {
 
-bool Dog::operator==(const Dog &other) const {
-  return Animal::operator==(other);
+  cout << "dogeeee" << endl;
 }
 
-AnimalType Cat::getType() const { return AnimalType::Dog; }
+void Cat::doge() const {
+  
+}
+bool Dog::operator==(const Dog &other) const {
+  return name == other.name;
+}
 
 bool Cat::operator==(const Cat &other) const {
-  return Animal::operator==(other);
+  return name == other.name;
 }
 
 Cat::Cat(string name): Animal(name) {}
