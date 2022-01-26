@@ -21,3 +21,7 @@ gtest_discover_tests(testrd5)
 add_executable(testrd6 rd6.cc)
 target_link_libraries(testrd6 rd6 gtest_main)
 gtest_discover_tests(testrd6)
+
+add_executable(testrd7 rd7.cc)
+target_link_libraries(testrd7 rd7 gtest_main)
+gtest_discover_tests(testrd7)
