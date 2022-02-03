@@ -5,7 +5,7 @@ drop table Tenants;
 create table Tenants (
     TenantID int,
     TenantName varchar(100) not null,
-    primary key(TenantID) 
+    primary key(TenantID)
 );
 
 create table Apartments(
