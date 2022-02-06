@@ -21,3 +21,7 @@ gtest_discover_tests(testbit6)
 add_executable(testbit7 bit7.cc)
 target_link_libraries(testbit7 bit7 gtest_main)
 gtest_discover_tests(testbit7)
+
+add_executable(testbit8 bit8.cc)
+target_link_libraries(testbit8 bit8 gtest_main)
+gtest_discover_tests(testbit8)
