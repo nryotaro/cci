@@ -5,3 +5,7 @@ gtest_discover_tests(testc1)
 add_executable(testc2 c2.cc)
 target_link_libraries(testc2 c2 gtest_main)
 gtest_discover_tests(testc2)
+
+add_executable(testc8 c8.cc)
+target_link_libraries(testc8 c8 gtest_main)
+gtest_discover_tests(testc8)
