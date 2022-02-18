@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16.3)
 project(lc)
-set(CMAKE_CXX_FLAGS "-std=c++17 -Wextra -Wall -ftrapv")
+set(CMAKE_CXX_FLAGS "-g3 -std=c++17 -Wextra -Wall -ftrapv")
 
 option(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 option(CMAKE_BUILD_TYPE Debug)

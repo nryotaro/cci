@@ -1,5 +1,6 @@
 #include <as/as1.h>
 #include <gtest/gtest.h>
+using namespace std;
 
 TEST(as1, 1) { EXPECT_EQ(false, solve("assfsfs")); }
 TEST(as1, 2) { EXPECT_EQ(false, solve1("assfsfs")); }
