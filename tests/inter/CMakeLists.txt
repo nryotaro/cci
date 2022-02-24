@@ -21,3 +21,7 @@ gtest_discover_tests(testinter7)
 add_executable(testinter9 inter9.cc)
 target_link_libraries(testinter9 inter9 gtest_main)
 gtest_discover_tests(testinter9)
+
+add_executable(testinter10 inter10.cc)
+target_link_libraries(testinter10 inter10 gtest_main)
+gtest_discover_tests(testinter10)
