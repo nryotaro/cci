@@ -2,21 +2,24 @@
 using namespace std;
 
 int solve(int k) {
-  int n = 10000;
-  vector<bool> is_prime(n, true);
-  is_prime[0] = false;
-  is_prime[1] = false;
-  vector<int> factor357;
-  for (int i = 2; i < n; i++) {
-    if (is_prime[i]) {
-      if (i % 3 == 0 || i % 5 == 0 || i % 7 == 0)
-        factor357.push_back(i);
-      if (i != 3 && i != 5 && i != 7) {
-        for (int j = i + i; j < n; j += i) {
-          is_prime[j] = false;
-        }
-      }
-    }
+  deque<int> que3, que5, que7;
+  que3.push_back(3);
+  que5.push_back(5);
+  que7.push_back(7);
+  int res;
+  for (int i = 0; i < k; i++) {
+    res = min(que3.front(), min(que5.front(), que7.front()));
+    if (res == que3.front()) {
+      que3.pop_front();
+      que3.push_back(3 * res);
+      que5.push_back(5 * res);
+    } else if (res == que5.front()) {
+      que5.pop_front();
+      que5.push_back(5 * res);
+      que7.push_back(7 * res);
+    } else
+      que7.pop_front();
+    que7.push_back(7 * res);
   }
-  return factor357[k - 1];
+  return res;
 }
