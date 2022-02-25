@@ -25,3 +25,7 @@ gtest_discover_tests(testadv7)
 add_executable(testadv8 adv8.cc)
 target_link_libraries(testadv8 adv8 gtest_main)
 gtest_discover_tests(testadv8)
+
+add_executable(testadv9 adv9.cc)
+target_link_libraries(testadv9 adv9 gtest_main)
+gtest_discover_tests(testadv9)
