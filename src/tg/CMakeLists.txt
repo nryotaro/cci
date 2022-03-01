@@ -5,5 +5,5 @@ add_library(tg4 tg4.cc)
 add_library(tg5 tg5.cc)
 add_library(tg6 tg6.cc)
 add_library(tg7 tg7.cc)
-
 add_library(tg9 tg9.cc)
+add_library(tg10 tg10.cc)
