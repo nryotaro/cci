@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+
 int solve(vector<int> args) {
   int n = args.size();
   int result = args[0];
