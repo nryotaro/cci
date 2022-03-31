@@ -11,4 +11,5 @@ add_library(inter16 inter16.cc)
 add_library(inter17 inter17.cc)
 add_library(inter18 inter18.cc)
 add_library(inter21 inter21.cc)
-
+add_library(inter22 inter22.cc)
+add_library(inter23 inter23.cc)
